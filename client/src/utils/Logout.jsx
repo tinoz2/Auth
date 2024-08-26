@@ -11,8 +11,8 @@ const Logout = () => {
         try {
             const res = await logoutRequest()
             if (res.data) {
+                navigate('/')
                 toastSuccess({ title: 'Account unlogged successfully' })
-                window.location.reload()
             }
         } catch (error) {
             console.error(error)
