@@ -7,7 +7,11 @@ const generateToken = (user, res) => {
         expiresIn: '30d',
     }, (err, token) => {
         err ? console.error(err) :
-            res.cookie('token', token)
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'None',
+        });        
         res.json({
             id: user._id,
             user: user.user,
