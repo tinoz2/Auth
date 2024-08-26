@@ -1,7 +1,8 @@
 import axios from 'axios'
+import { BACKEND } from '@/../config.js'
 
 const instance = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: BACKEND,
     withCredentials: true
 })
 
