@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "build": "CI=false backend/npm run build",
+        "build": "npm install --prefix backend && npm run build --prefix backend",
         "start": "node backend/index.js"
     }
 }
