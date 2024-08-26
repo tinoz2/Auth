@@ -1,0 +1,94 @@
+import { Button } from "@/components/ui/button"
+import {
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { registerSchema } from "@/utils/authSchema"
+import { registerRequest } from "@/api/fetchData"
+import { useNavigate } from "react-router-dom"
+import { toastError, toastSuccess } from "@/utils/toast"
+
+const Register = () => {
+
+    const navigate = useNavigate()
+
+    const form = useForm({
+        resolver: zodResolver(registerSchema),
+        defaultValues: {
+            username: "",
+            email: "",
+            password: ""
+        }
+    });
+
+    const onSubmit = async (data) => {
+        try {
+            const res = await registerRequest(data)
+            if (res.data) {
+                toastSuccess({ title: 'Account created successfully' })
+                navigate('/verify')
+            }
+        }
+        catch (err) {
+            console.error(err)
+            toastError({ title: err.response?.data?.message || 'Could not create your account' })
+        }
+    };
+
+    return (
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-80 m-auto mt-8">
+                <FormField
+                    control={form.control}
+                    name="username"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel className='text-zinc-50 font-semibold'>Username</FormLabel>
+                            <FormControl>
+                                <Input placeholder="User..." {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel className='text-zinc-50 font-semibold'>Email</FormLabel>
+                            <FormControl>
+                                <Input placeholder="Email..." {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel className='text-zinc-50 font-semibold'>Password</FormLabel>
+                            <FormControl>
+                                <Input placeholder="Password..." {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <Button type="submit" className="bg-gray-500 hover:bg-white hover:text-black">Submit</Button>
+            </form>
+        </Form>
+    )
+}
+
+export default Register
