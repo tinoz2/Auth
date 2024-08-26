@@ -1,0 +1,6 @@
+{
+    "scripts": {
+        "build": "CI=false backend/npm run build",
+        "start": "node backend/index.js"
+    }
+}
