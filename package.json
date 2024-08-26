@@ -2,5 +2,8 @@
     "scripts": {
         "build": "npm run build --prefix backend",
         "start": "node backend/index.js"
+    },
+    "dependencies": {
+        "cookie-parser": "^1.4.6"
     }
 }
