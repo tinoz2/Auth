@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "build": "CI=false npm run build"
+    "build": "CI=false npm run build",
+    "start": "node backend/index.js"
   },
   "dependencies": {
     "axios": "^1.7.3",
